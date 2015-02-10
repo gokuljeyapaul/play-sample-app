@@ -1,0 +1,31 @@
+@(productForm : Form[Product])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script>
+ $(function() {
+    $( "#search" ).autocomplete({
+      source: '@routes.Application.productIds()',
+      minLength: 1,
+      select: function( event, ui ) {
+        var url = '/products/:id/search';
+        url = url.replace(":id", ui.item.value);
+        $.get(url, function(data, status){
+	        $("#edit").html(data);
+	    });
+      }
+    });
+  });
+</script>
+
+
+@main("Search"){
+	@inputText(productForm("search"),'_label -> "Search",'id -> "search")
+}
+
+<span id="edit"/>

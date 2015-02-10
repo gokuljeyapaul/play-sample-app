@@ -1,0 +1,22 @@
+
+
+@(productForm : Form[Product])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+@main("Edit"){
+		<h2>Edit product</h2>
+		@form(action = routes.Application.saveProduct()){
+			@inputText(productForm("id"),'_label -> "",'name -> "id", 'hidden -> "hidden")
+			@inputText(productForm("title"),'_label -> "Title")
+			@inputText(productForm("pricing.cost"),'_label -> "Cost",'readonly -> "readonly", '_help -> " Cost is read only")
+			@inputText(productForm("pricing.price"),'_label -> "Price")
+			@inputText(productForm("pricing.promoPrice"),'_label -> "Promo Price",'readonly -> "readonly", '_help -> " Promo price is read only")
+			@inputText(productForm("pricing.savings"),'_label -> "Savings",'readonly -> "readonly", '_help -> " Savings is read only")
+			@checkbox(productForm("pricing.onSale"),'_label -> "On Sale",'readonly -> "readonly", '_help -> " On sale is read only")
+			<input type="submit" class="btn btn-default" value="Save"/>
+		}
+}

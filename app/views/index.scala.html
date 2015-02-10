@@ -1,0 +1,65 @@
+@(products: List[Product], productForm : Form[Product])
+
+@import helper._
+@import helpers.BootstrapHelper._
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+@main("Product List"){
+	
+<h3>@products.size() product(s)</h3>
+
+<table class="table table-condensed">
+	<thead>
+      <tr>
+        <th>Title</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>Promo Price</th>
+        <th>Savings</th>
+        <th>On Sale</th>
+      </tr>
+    </thead>
+    <tbody>
+	@for(product <- products){
+		<tr>
+		<td>
+			@product.title
+		</td>
+		<td>
+			@product.pricing.cost
+		</td>
+		<td>
+			@product.pricing.price
+		</td>
+		<td>
+			@product.pricing.promoPrice
+		</td>
+		<td>
+			@product.pricing.savings
+		</td>
+		<td>
+			@product.pricing.onSale
+		</td>
+		<td>	
+			@helper.form(action = routes.Application.getProduct(product.id)){
+				<input type="submit" value="Edit"/>
+			}
+		</td>
+		<td>	
+			@helper.form(action = routes.Application.deleteProduct(product.id)){
+				<input type="submit" value="Delete"/>
+			}
+		</td>
+		</tr>
+	}
+	</tbody>
+</table>
+@helper.form(action = routes.Application.searchProducts()){
+	<input type="submit" class="btn btn-primary" value="Search and Edit"/>
+	}
+@helper.form(action = routes.Application.addProduct()){
+	<input type="submit" class="btn btn-primary" value="Add"/>
+	}
+}

@@ -1,0 +1,23 @@
+@(productForm : Form[Product])
+
+@import helper._
+@import helpers.BootstrapHelper._
+@import play.i18n._
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<h2>Add new product</h2>
+<table class="table table-condensed">
+@main("Add"){
+	@form(action = routes.Application.newProduct()){
+		@inputText(productForm("title"),'_label -> "Title")
+		@inputText(productForm("pricing.cost"),'_label -> "Cost")
+		@inputText(productForm("pricing.price"),'_label -> "Price")
+		@inputText(productForm("pricing.promoPrice"),'_label -> "Promo Price")
+		@inputText(productForm("pricing.savings"),'_label -> "Savings")
+		@checkbox(productForm("pricing.onSale"),'_label -> "On Sale")
+		<input type="submit" class="btn btn-default" value="Add"/>
+	}
+}
+</table>
