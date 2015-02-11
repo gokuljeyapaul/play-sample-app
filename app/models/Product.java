@@ -18,7 +18,7 @@ public class Product {
 	@Id
 	public Long id;
 	
-	@Required
+	@Required(message="error.invalid")
 	public String title;
 	
 	@Required
@@ -28,6 +28,25 @@ public class Product {
 		List<ValidationError> errors = new ArrayList<ValidationError>();
 		if(title == null){
 			errors.add(new ValidationError("title", "Title of the product is null or empty"));
+		}
+		if(pricing.cost == 0.0){
+			errors.add(new ValidationError("cost", "Cost is invalid"));
+		}
+		
+		if(pricing.price == 0.0){
+			errors.add(new ValidationError("price", "Price is invalid"));
+		}
+		
+		if(pricing.promoPrice == 0.0){
+			errors.add(new ValidationError("promoPrice", "Promo Price has to be at least same as product price"));
+		}
+		
+		if(pricing.price <= pricing.cost){
+			errors.add(new ValidationError("price", "Price must be more than the cost"));
+		}
+		
+		if(pricing.savings < (pricing.price - pricing.promoPrice)){
+			errors.add(new ValidationError("promoPrice", "Savings field is invalid"));
 		}
 		return errors.isEmpty() ? null : errors;
 	}

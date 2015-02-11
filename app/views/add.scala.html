@@ -4,6 +4,17 @@
 @import helpers.BootstrapHelper._
 @import play.i18n._
 
+@if(productForm.hasErrors) {
+    <div class="alert alert-error">
+        @if(productForm.errors.size() > 0) {
+            @for((key, value) <- productForm.errors) {
+                    @for(err <- value) {
+                        @err.message().toString() <br/>
+                    }
+            }
+        } 
+    </div>
+}
 
 <h2>Add new product</h2>
 <table class="table table-condensed">

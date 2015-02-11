@@ -57,8 +57,8 @@ public class Application extends Controller {
 	}
 	
 	public static Result saveProduct(){
-		Form<Product> filledForm = productForm.bindFromRequest();
-		if (productForm.hasErrors()) {
+		Form<Product> filledForm = Form.form(Product.class).bindFromRequest();
+		if (filledForm.hasErrors()) {
 			return badRequest(views.html.index
 					.render(dao.getAllProducts(), filledForm));
 		} else {
