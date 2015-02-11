@@ -3,6 +3,8 @@ package controllers;
 import java.io.IOException;
 
 import models.Product;
+import models.dao.ProductDao;
+import models.dao.impl.ProductDaoImpl;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -15,13 +17,15 @@ import controllers.helpers.Util;
 public class Application extends Controller {
 
 	static Form<Product> productForm = new Form<Product>(Product.class);
+	
+	static ProductDao dao = new ProductDaoImpl();
 
 	public static Result index() {
 		return redirect(routes.Application.products());
 	}
 
 	public static Result products() {
-		return ok(views.html.index.render(Product.all(), new Form<Product>(Product.class)));
+		return ok(views.html.index.render(dao.getAllProducts(), new Form<Product>(Product.class)));
 	}
 	
 	public static Result addProduct() {
@@ -33,11 +37,11 @@ public class Application extends Controller {
 	}
 
 	public static Result productIds() {
-		return ok(Util.getAllIDs(Product.all()));
+		return ok(Util.getAllIDs(dao.getAllProducts()));
 	}
 	
 	public static Result getProduct(Long id){
-		productForm = productForm.fill(Product.get(id));
+		productForm = productForm.fill(dao.read(id));
 		return ok(views.html.edit.render(productForm));
 	}
 
@@ -47,7 +51,7 @@ public class Application extends Controller {
 			return badRequest(views.html.add
 					.render(filledForm));
 		} else {
-			Product.create(filledForm.get());
+			dao.create(filledForm.get());
 			return redirect(routes.Application.products());
 		}
 	}
@@ -56,15 +60,15 @@ public class Application extends Controller {
 		Form<Product> filledForm = productForm.bindFromRequest();
 		if (productForm.hasErrors()) {
 			return badRequest(views.html.index
-					.render(Product.all(), filledForm));
+					.render(dao.getAllProducts(), filledForm));
 		} else {
-			Product.save(filledForm.get());
+			dao.update(filledForm.get());
 			return redirect(routes.Application.products());
 		}
 	}
 
 	public static Result deleteProduct(Long id) {
-		Product.delete(id);
+		dao.delete(id);
 		return redirect(routes.Application.products());
 	}
 
