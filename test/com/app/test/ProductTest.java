@@ -1,14 +1,8 @@
-import net.vz.mongodb.jackson.JacksonDBCollection;
+package com.app.test;
 
 import org.junit.*;
 import java.util.List;
 
-import play.modules.mongodb.jackson.MongoDB;
-import play.mvc.*;
-import play.test.*;
-import play.libs.F.*;
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
 import static org.junit.Assert.*;
 import models.Product;
 import models.dao.ProductDao;
