@@ -9,7 +9,7 @@
         @if(productForm.errors.size() > 0) {
             @for((key, value) <- productForm.errors) {
                     @for(err <- value) {
-                        @err.message().toString() <br/>
+                        @Messages.get(err.message())<br/>
                     }
             }
         } 

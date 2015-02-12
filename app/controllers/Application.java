@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import models.Product;
 import models.dao.ProductDao;
@@ -9,6 +10,7 @@ import models.dao.impl.ProductDaoImpl;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import play.data.Form;
+import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,8 +61,7 @@ public class Application extends Controller {
 	public static Result saveProduct(){
 		Form<Product> filledForm = Form.form(Product.class).bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.index
-					.render(dao.getAllProducts(), filledForm));
+			return badRequest(views.html.edit.render(filledForm));
 		} else {
 			dao.update(filledForm.get());
 			return redirect(routes.Application.products());

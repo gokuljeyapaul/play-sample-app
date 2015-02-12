@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Id;
 
 import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
 import play.data.validation.ValidationError;
 
 public class Product {
@@ -18,7 +20,9 @@ public class Product {
 	@Id
 	public Long id;
 	
-	@Required(message="error.invalid")
+	@Required
+	@MaxLength(50)
+	@MinLength(8)
 	public String title;
 	
 	@Required
@@ -26,9 +30,6 @@ public class Product {
 	
 	public List<ValidationError> validate(){
 		List<ValidationError> errors = new ArrayList<ValidationError>();
-		if(title == null){
-			errors.add(new ValidationError("title", "Title of the product is null or empty"));
-		}
 		if(pricing.cost == 0.0){
 			errors.add(new ValidationError("cost", "Cost is invalid"));
 		}
