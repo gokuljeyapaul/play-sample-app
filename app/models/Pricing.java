@@ -1,12 +1,12 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.Required;
 import play.data.validation.Constraints.Min;
 
+/**
+ * Pricing model
+ *
+ */
 public class Pricing {
 
 	@Min(1)

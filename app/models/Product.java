@@ -10,11 +10,14 @@ import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.ValidationError;
 
+/**
+ * 
+ * Product model that "has" pricing
+ *
+ */
 public class Product {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 94587092799205246L;
 
 	@Id

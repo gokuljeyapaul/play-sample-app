@@ -12,6 +12,11 @@ import models.Product;
 
 public class Util {
 	
+	/**
+	 * Convert all IDs to json string to show in search auto-suggestion box
+	 * @param products
+	 * @return
+	 */
 	public static String getAllIDs(List<Product> products){
 		List<String> ids = new ArrayList<String>();
 		for(Product product : products){
